@@ -1,4 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { 
+    ClerkLoaded, 
+    ClerkLoading,
+    SignedIn,
+    SignedOut,
+    SignInButton,
+    UserButton,
+
+} from "@clerk/nextjs";
+import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,9 +33,24 @@ export const Header = () => {
                         </Link>
                     </h1>
                 </div>
-                    <Button size="lg" variant="outline" className="text-base font-bold w-24 h-10">
-                        Log In
-                    </Button>              
+                <ClerkLoading>
+                    <LoaderCircle className="h-5 w-5 text-muted-foreground animate-spin"/>
+                </ClerkLoading>
+                <ClerkLoaded>
+                    <SignedIn>
+                        <UserButton
+                        />
+                    </SignedIn>
+                    <SignedOut>
+                        <SignInButton
+                            mode="modal"
+                        >
+                            <Button size="lg" variant="outline" className="text-base font-bold w-24 h-10">
+                                Log In
+                            </Button>
+                        </SignInButton>
+                    </SignedOut>
+                </ClerkLoaded>
             </div>
         </header>
     );

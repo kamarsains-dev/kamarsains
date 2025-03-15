@@ -1,20 +1,23 @@
-"use client";
-
+"use client"; 
 import { useState, useEffect } from "react";
 
 const InfoBar = () => {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        const isBarClosed = sessionStorage.getItem("infoBarClosed");
-        if (isBarClosed === "true") {
-            setIsVisible(false);
+        if (typeof window !== "undefined") {
+            const isBarClosed = sessionStorage.getItem("infoBarClosed");
+            if (isBarClosed === "true") {
+                setIsVisible(false);
+            }
         }
     }, []);
 
     const handleClose = () => {
         setIsVisible(false);
-        sessionStorage.setItem("infoBarClosed", "true");
+        if (typeof window !== "undefined") {
+            sessionStorage.setItem("infoBarClosed", "true");
+        }
     };
 
     if (!isVisible) return null;
