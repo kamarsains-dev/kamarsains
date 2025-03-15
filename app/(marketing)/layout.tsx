@@ -1,9 +1,4 @@
-"use client"
 
-import dynamic from "next/dynamic";
-import { Header } from "./header";
-
-const InfoBar = dynamic(() => import("@/components/infobar"), { ssr: false });
 
 type Props = {
     children: React.ReactNode;
@@ -12,8 +7,7 @@ type Props = {
 const MarketingLayout = ({ children }: Props) => {
     return (
         <div>
-            <InfoBar/>
-            <Header />
+            
             <main className="flex-1 flex-col items-center justify-center">
                 {children}
             </main>
