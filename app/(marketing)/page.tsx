@@ -1,3 +1,5 @@
+"use client"
+
 import Welcome from "./welcome/welcome"
 import FirstSection from "./firstsection/firstsection"
 import SecondSection from "./secondsection/secondsection"
