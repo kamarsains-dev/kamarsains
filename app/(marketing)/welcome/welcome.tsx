@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import BiologyIcon from "@/public/biology.svg"
 import SpaceIcon from "@/public/blackhole.svg"
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
+import { Loader } from "lucide-react";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/clerk-react";
+import Link from "next/link";
 
 const Welcome = () => {
     return (
@@ -19,9 +23,30 @@ const Welcome = () => {
                 <p className="text-base lg:text-xl font-light pb-5 text-white container">
                     Learn and have fun science in just 15 minutes a day!
                 </p>
-                <Button variant="secondary" className="w-64 h-14 text-lg">
-                    Start Your Mission
-                </Button>
+                <div>
+                    <ClerkLoading>
+                        <Loader className="h-5 w-5 text-muted-foreground animate-spin"/>
+                    </ClerkLoading>
+                    <ClerkLoaded>
+                        <SignedOut>
+                            <SignUpButton
+                                mode="modal"
+                            >
+                                <Button variant="secondary" className="w-64 h-14 text-lg">
+                                    Start Your Mission
+                                </Button>    
+                            </SignUpButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <Button variant="secondary" className="w-64 h-14 text-lg" asChild>
+                                <Link href="/start">
+                                    Start Your Mission
+                                </Link>
+                            </Button>    
+                        </SignedIn>
+                    </ClerkLoaded>
+                </div>
+                
             </div>
             <div className="bg-white h-16 w-full border-y-2 border-slate-200 mt-8 flex justify-center items-center text-center gap-24 text-gray-700">
                 <div className="flex gap-x-2">
