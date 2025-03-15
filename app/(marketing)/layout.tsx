@@ -1,18 +1,38 @@
+import type { Metadata } from "next";
+import { Space_Grotesk } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import "../globals.css";
+import InfoBar from "@/components/infobar";
+import { Header } from "./header";
 
+const font = Space_Grotesk({
+  variable: "--font-spacegrotesk",
+  subsets: ["latin"],
+  weight: ["300", "500", "700"],
+});
 
-type Props = {
-    children: React.ReactNode;
+export const metadata: Metadata = {
+  title: "Kamar Sains",
+  description: "Apapun Tentang Dunia!",
+  icons: "/favicon.png"
 };
 
-const MarketingLayout = ({ children }: Props) => {
-    return (
-        <div>
-            
-            <main className="flex-1 flex-col items-center justify-center">
-                {children}
-            </main>
-        </div>
-    );
-};
-
-export default MarketingLayout;
+export default function MarketingLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+    <html lang="en">
+      <body
+        className={font.className}
+      >
+        <InfoBar/>
+        <Header/>
+        {children}
+      </body>
+    </html>
+    </ClerkProvider>
+  );
+}
